@@ -1,0 +1,103 @@
+Peço desculpas pela confusão. Vou corrigir isso para garantir que a matriz seja exibida corretamente. Aqui está o código atualizado:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matriz 10x10 com números aleatórios</title>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th, td {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+    }
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<table id="matrix">
+    <!-- Criação da matriz 10x10 -->
+    <!-- As células da matriz serão preenchidas via JavaScript -->
+</table>
+
+<button onclick="generateRandomNumber()">Gerar Número Aleatório</button>
+
+<script>
+var matrix = [];
+var rowIndex = 0;
+var colIndex = 0;
+
+// Função para inicializar a matriz com valores vazios
+function initializeMatrix() {
+    var table = document.getElementById("matrix");
+    for (var i = 0; i < 10; i++) {
+        var row = table.insertRow();
+        matrix.push([]);
+        for (var j = 0; j < 10; j++) {
+            var cell = row.insertCell();
+            cell.innerHTML = "";
+            matrix[i].push("");
+        }
+    }
+}
+
+// Função para preencher a célula atual com um número aleatório único
+function fillCellWithRandomNumber() {
+    var randomNumber;
+    do {
+        randomNumber = Math.floor(Math.random() * 10) + 1;
+    } while (!isUniqueInRowAndColumn(randomNumber));
+    
+    matrix[rowIndex][colIndex] = randomNumber;
+    document.getElementById("matrix").rows[rowIndex].cells[colIndex].innerHTML = randomNumber;
+    
+    colIndex++;
+    if (colIndex === 10) {
+        colIndex = 0;
+        rowIndex++;
+    }
+    if (rowIndex === 10) {
+        document.querySelector("button").disabled = true; // Desabilitar o botão quando a matriz estiver cheia
+    }
+}
+
+// Função para verificar se o número é único na linha e na coluna atual
+function isUniqueInRowAndColumn(number) {
+    for (var i = 0; i < 10; i++) {
+        if (matrix[rowIndex][i] === number || matrix[i][colIndex] === number) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Função para gerar um número aleatório e preencher a célula
+function generateRandomNumber() {
+    if (rowIndex < 10) {
+        fillCellWithRandomNumber();
+    }
+}
+
+// Inicializar a matriz ao carregar a página
+initializeMatrix();
+</script>
+
+</body>
+</html>
+```
+
+Agora a matriz deve ser visível corretamente na página da web.
